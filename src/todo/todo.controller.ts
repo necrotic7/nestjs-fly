@@ -1,10 +1,18 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Query,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
 import { TodoService, Todo as tTodo } from './todo.service';
 
 @Controller('todo')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
   @Get()
+  @HttpCode(HttpStatus.ACCEPTED)
   getTodos(
     @Query('id') id?: number,
     @Query('limit') limit: number = 10,
