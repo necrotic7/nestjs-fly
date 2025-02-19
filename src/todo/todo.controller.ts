@@ -6,9 +6,10 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) {}
   @Get()
   getTodos(
-    @Query() params: { id?: number; limit?: number; skip?: number },
+    @Query('id') id?: number,
+    @Query('limit') limit: number = 10,
+    @Query('skip') skip: number = 0,
   ): tTodo[] {
-    const { id, limit = 10, skip = 0 } = params;
     return this.todoService.getTodos(id, limit, skip);
   }
 
