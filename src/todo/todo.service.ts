@@ -1,22 +1,10 @@
 import { Injectable } from '@nestjs/common';
-
-export type Todo = {
-  id: number;
-  subject: string;
-};
+import { Todo } from './todo.dto';
 
 const todoList: Todo[] = [
   {
     id: 1,
     subject: 'study',
-  },
-  {
-    id: 2,
-    subject: 'work',
-  },
-  {
-    id: 3,
-    subject: 'sport',
   },
 ];
 
@@ -29,5 +17,13 @@ export class TodoService {
 
   getTodo(id: number): Todo | object {
     return todoList.find((t) => t.id == id) ?? {};
+  }
+
+  createTodo(subject: string): void {
+    todoList.push({
+      id: todoList.length + 1,
+      subject,
+    });
+    return;
   }
 }

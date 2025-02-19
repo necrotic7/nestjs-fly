@@ -5,9 +5,11 @@ import {
   Query,
   HttpCode,
   HttpStatus,
+  Post,
+  Body,
 } from '@nestjs/common';
-import { TodoService, Todo as tTodo } from './todo.service';
-
+import { TodoService } from './todo.service';
+import { Todo as tTodo, CreateTodo as iCreateTodo } from './todo.dto';
 @Controller('todo')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
@@ -25,5 +27,12 @@ export class TodoController {
   getTodo(@Param() params: { id: number }): tTodo | object {
     const { id } = params;
     return this.todoService.getTodo(id);
+  }
+
+  @Post()
+  createTodo(@Body() params: iCreateTodo): void {
+    const { subject } = params;
+    this.todoService.createTodo(subject);
+    return;
   }
 }
